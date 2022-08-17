@@ -4,6 +4,7 @@ from django.db import models
 
 class UserEmail(models.Model):
     email=models.EmailField(unique=True)    
+    otp=models.CharField(max_length=7,null=True,blank=True)
     
     def __str__(self):
         return self.email
