@@ -7,20 +7,21 @@ from accounts.models import UserEmail,Token
 from .serializers import NoteSerializer
 from accounts.models import Token
 
+
 # Create your views here.
 
 
 @api_view(['GET'])
 def ListNotesView(request):
     try:
-        auth_token=request.headers['Auth-Token']    
+        auth_token=request.headers['AuthToken']    
     except Exception as e:
         return Response("Auth Token Not Valid")
     TokenObj=Token.objects.get(token=auth_token)
     UserObj=UserEmail.objects.get(email=TokenObj.email)
-    NotesObj=UserNotes.objects.filter(user=UserObj).values()
+    NotesObj=UserNotes.objects.filter(user=UserObj).values().order_by('-updated')
     if NotesObj.count() <= 0:
-        return Response('No Notes Yet')
+        return Response(NotesObj)
     else:
         JsonObj=[]
         for i in NotesObj:
@@ -31,7 +32,7 @@ def ListNotesView(request):
 @api_view(['POST'])
 def CreateNoteView(request):    
     try:
-        auth_token=request.headers['Auth-Token']    
+        auth_token=request.headers['AuthToken']    
     except Exception as e:
         return Response("Auth Token Not Valid")
     if request.method == 'POST':
@@ -41,10 +42,10 @@ def CreateNoteView(request):
         id=NotesObj.id   
         return Response(id)
 
-@api_view(['PATCH','DELETE','GET','PUT'])
+@api_view(['PATCH','DELETE','GET'])
 def GetDeleteUpdateNotes(request,pk):
     try:
-        auth_token=request.headers['Auth-Token']        
+        auth_token=request.headers['AuthToken']        
     except Exception as e:
         return Response("Auth Token Not Valid")
     if request.method=='GET':
@@ -75,12 +76,11 @@ def GetDeleteUpdateNotes(request,pk):
                 if serializer.is_valid():
                     serializer.save()
                     return Response("Created!!")
-                else:
+                else:                    
                     return Response("Not Created!!")
             else:
                 NoteObj.delete()
                 return Response("Deleted!!")
-                
         except Exception as e:
             print(e)
             return Response("Note Obj Not Found")

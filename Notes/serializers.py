@@ -6,3 +6,5 @@ class NoteSerializer(serializers.ModelSerializer):
     class Meta:
         model=UserNotes
         fields=('title','content')
+        
+        

@@ -12,7 +12,8 @@ from django.core.mail import send_mail
 
 
 @api_view(['POST'])
-def LoginOrSignupView(request):    
+def LoginOrSignupView(request):
+    print(request.method)
     try:
         UserObj, emailcreated = UserEmail.objects.get_or_create(
             email=request.data['email'])
