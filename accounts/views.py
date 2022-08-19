@@ -34,8 +34,7 @@ def LoginOrSignupView(request):
         otp=request.data['otp']
         try:
             UserObj = UserEmail.objects.get(otp=otp)
-            encoded_token = jwt.encode(
-            {"token": UserObj.email+str(otp)}, "DjangoNotes", algorithm="HS256")
+            encoded_token = jwt.encode({"token": UserObj.email}, "DjangoNotes", algorithm="HS256")
             data = {
                 'token': encoded_token
             }
