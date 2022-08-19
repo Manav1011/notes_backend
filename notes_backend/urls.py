@@ -19,6 +19,7 @@ from django.conf import settings
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    re_path(r'^$',admin.site.urls),
     path('accounts/', include('accounts.urls')),
     path('Notes/', include('Notes.urls')),
     path('api-auth/', include('rest_framework.urls'))
