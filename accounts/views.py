@@ -16,7 +16,7 @@ def LoginOrSignupView(request):
     print(request.method)
     try:
         UserObj, emailcreated = UserEmail.objects.get_or_create(
-            email=request.data['email'])
+            email=request.data['email']).lower()
         N = 7
         random_string = ''.join(random.choices(string.ascii_lowercase +
                                                string.digits, k=N))
