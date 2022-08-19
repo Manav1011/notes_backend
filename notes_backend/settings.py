@@ -59,7 +59,7 @@ MIDDLEWARE = [
 
 CORS_ALLOWED_ORIGINS = [
     'http://localhost:3000',
-    'https://62ff880b8cbf6408cbbfcf7a--personalnotes-frontend.netlify.app',
+    'https://personalnotes-frontend.netlify.app',
 ]
 
 CORS_ALLOW_HEADERS = ('content-disposition', 'accept-encoding',
