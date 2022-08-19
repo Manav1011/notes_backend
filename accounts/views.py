@@ -15,7 +15,7 @@ from django.core.mail import send_mail
 def LoginOrSignupView(request):
     print(request.method)
     try:
-        email = json.dumps(request.data['email']).lower()
+        email = (json.dumps(request.data['email'])).lower()
         UserObj, emailcreated = UserEmail.objects.get_or_create(email)
         N = 7
         random_string = ''.join(random.choices(string.ascii_lowercase +
