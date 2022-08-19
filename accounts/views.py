@@ -15,23 +15,19 @@ from django.core.mail import send_mail
 def LoginOrSignupView(request):
     print(request.method)
     try:
-        UserObj, emailcreated = UserEmail.objects.get_or_create(
-            email=request.data['email']).lower()
+        email = json.dumps(request.data['email']).lower()
+        UserObj, emailcreated = UserEmail.objects.get_or_create(email)
         N = 7
         random_string = ''.join(random.choices(string.ascii_lowercase +
                                                string.digits, k=N))
-        print(UserObj)
         try:
             UserObj.otp=random_string            
             email_from = 'manavshah1011.ms@gmail.com'
-            email = json.dumps(request.data['email']).lower()
-            print(email)
             send_mail("OTP for account activation", f"Your OTP is :{random_string}", email_from, [
                       email, ], fail_silently=False)
             UserObj.save()
             return Response(random_string)
         except Exception as e:
-            print("Exception Occured")
             print(e)
             return Response('Please Enter Correct Email')
     except Exception as e:
