@@ -23,7 +23,7 @@ def LoginOrSignupView(request):
         try:
             UserObj.otp=random_string            
             email_from = 'manavshah1011.ms@gmail.com'
-            email = json.dumps(request.data['email'])
+            email = json.dumps(request.data['email']).lower()
             send_mail("OTP for account activation", f"Your OTP is :{random_string}", email_from, [
                       email, ], fail_silently=False)
             UserObj.save()
