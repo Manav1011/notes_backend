@@ -24,7 +24,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-i^60*bt1xzkoc)2_g6vyd!hqanrlf2wzqk3pxtnq5bhzs*b5hq'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['personalnotes-backend.herokuapp.com','127.0.0.1']
 
