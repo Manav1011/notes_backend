@@ -34,7 +34,8 @@ def LoginOrSignupView(request):
             print("Exception Occured")
             print(e)
             return Response('Please Enter Correct Email')
-    except:
+    except Exception as e:
+        print(e)
         otp=request.data['otp']
         try:
             UserObj = UserEmail.objects.get(otp=otp)
