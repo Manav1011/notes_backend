@@ -3,7 +3,7 @@ from .models import UserNotes
 # Register your models here.
 
 class NotesAdmin(admin.ModelAdmin):
-    readonly_fields = ('created','updated')
+    readonly_fields = ('updated')
 
 
 admin.site.register(UserNotes,NotesAdmin)
