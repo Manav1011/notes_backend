@@ -1,6 +1,6 @@
 from django.db import models
 from accounts.models import UserEmail
-from django.db.models.signals import pre_save
+from django.db.models.signals import post_save
 from django.dispatch import receiver
 
 
@@ -18,4 +18,7 @@ class UserNotes(models.Model):
         return str(self.title)
     
     
-    
+@receiver(post_save,sender=UserNotes)
+def PreSaveContentCheck(sender,instance,*args,**kwargs):
+    if not instance.content:
+        instance.delete()        
