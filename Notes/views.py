@@ -36,11 +36,15 @@ def CreateNoteView(request):
     except Exception as e:
         return Response("Auth Token Not Valid")
     if request.method == 'POST':
-        TokenObj=Token.objects.get(token=auth_token)
-        UserObj=UserEmail.objects.get(email=TokenObj.email)
-        NotesObj=UserNotes.objects.create(user=UserObj) 
-        id=NotesObj.id   
-        return Response(id)
+        try:
+            TokenObj=Token.objects.get(token=auth_token)
+            UserObj=UserEmail.objects.get(email=TokenObj.email)
+            data=request.data
+            NotesObj=UserNotes.objects.create(user=UserObj,title=data['content'],content=data['content'])
+            id=NotesObj.id   
+            return Response(id)
+        except:
+            return Response('User Does Not Exits')
 
 @api_view(['PATCH','DELETE','GET'])
 def GetDeleteUpdateNotes(request,pk):
