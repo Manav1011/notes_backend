@@ -25,7 +25,10 @@ def ListNotesView(request):
     else:
         JsonObj=[]
         for i in NotesObj:
-            JsonObj.append(i)
+            if not i['content']:
+                UserNotes.objects.get(id=i['id']).delete()
+            else:
+                JsonObj.append(i)
         return Response(JsonObj)
         
 

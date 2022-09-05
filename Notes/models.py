@@ -19,7 +19,8 @@ class UserNotes(models.Model):
     
     
 @receiver(post_save,sender=UserNotes)
-def PreSaveContentCheck(sender,instance,*args,**kwargs):
-    if not instance.content:
-        instance.delete()
-        print("Deleted")
+def PreSaveContentCheck(sender,created,instance,*args,**kwargs):
+    if not created:
+        if not instance.content:
+            instance.delete()
+            print("Deleted")
