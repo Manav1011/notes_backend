@@ -8,7 +8,8 @@ from django.views.decorators.csrf import csrf_exempt
 @csrf_exempt
 def webhooksview(request):    
     if request.method == 'GET':
-        return HttpResponse(request.GET['hub.challenge'])
+        print(request.GET)
+        return HttpResponse("Success")
     else:
         print(json.loads(request.body))
         return HttpResponse("Success")    
