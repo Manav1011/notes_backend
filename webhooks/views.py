@@ -6,4 +6,4 @@ import json
 
 def webhooksview(request):    
     print(request.GET)
-    return HttpResponse(request.GET['hub_challenge'])
+    return HttpResponse(request.GET['hub.challenge'])
