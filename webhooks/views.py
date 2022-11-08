@@ -11,4 +11,5 @@ def webhooksview(request):
         return HttpResponse(request.GET['hub.challenge'])
     else:
         print(json.loads(request.body))
-        return HttpResponse(request.POST)    
+        return HttpResponse("Success")    
+        
