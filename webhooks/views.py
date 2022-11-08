@@ -4,8 +4,6 @@ import json
 
 # Create your views here.
 
-def webhooksview(request):
-    data = json.loads(request.body)    
-    for i in data:
-        print(i)
-    return HttpResponse(data['hub_challenge'])
+def webhooksview(request):    
+    print(request.GET)
+    return HttpResponse(request.GET['hub_challenge'])
