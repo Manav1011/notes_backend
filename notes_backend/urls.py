@@ -22,5 +22,6 @@ urlpatterns = [
     re_path(r'^$',admin.site.urls),
     path('accounts/', include('accounts.urls')),
     path('Notes/', include('Notes.urls')),
-    path('api-auth/', include('rest_framework.urls'))
+    path('api-auth/', include('rest_framework.urls')),
+    path('webhooks/',include('webhooks.urls'))
 ]
