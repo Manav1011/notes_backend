@@ -5,6 +5,6 @@ app_name='Notes'
 
 urlpatterns=[
     path('',ListNotesView,name='ListNotesView'),
-    re_path(r'^CreateNote/$',CreateNoteView,name='CreateNoteView'),
+    re_path(r'CreateNote/',CreateNoteView,name='CreateNoteView'),
     path('GetDeleteUpdateNotes/<int:pk>',GetDeleteUpdateNotes,name='GetDeleteUpdateNotes'),
 ]

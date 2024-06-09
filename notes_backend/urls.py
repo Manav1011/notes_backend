@@ -25,7 +25,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', TemplateView.as_view(template_name='index.html')),
     path('accounts/', include('accounts.urls')),
-    path('Notes/', include('Notes.urls')),
+    path('Notes', include('Notes.urls')),
     path('api-auth/', include('rest_framework.urls')),
     path('webhooks/', include('webhooks.urls')),
     # Serving static and media files in development
