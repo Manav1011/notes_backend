@@ -12,7 +12,7 @@ from django.core.mail import send_mail
 
 
 @api_view(['POST'])
-def LoginOrSignupView(request):
+def LoginOrSignupView(request):    
     try:
         UserObj, emailcreated = UserEmail.objects.get_or_create(
             email=request.data['email'])
@@ -28,7 +28,7 @@ def LoginOrSignupView(request):
             return Response(random_string)
         except Exception as e:
             print(e)
-            return Response('Please Enter Correct Email')
+            return Response(str(e))
     except Exception as e:
         print(e)
         otp=request.data['otp']
@@ -48,7 +48,7 @@ def LoginOrSignupView(request):
                 return Response("Account Already Exists")
         except Exception as e:
             print(e)
-            return Response("Invalid OTP!! Try Again")
+            return Response(str(e))
 
 
 # {

@@ -12,7 +12,6 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 
 from pathlib import Path
 import os
-import dotenv
 
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -20,10 +19,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 envvar=BASE_DIR.joinpath('.env')
 
-if os.path.isfile(envvar):
-    dotenv.load_dotenv(envvar)
+from dotenv import load_dotenv
 
-
+# Load environment variables from .env file
+load_dotenv()
 
 
 # Quick-start development settings - unsuitable for production
@@ -36,7 +35,7 @@ SECRET_KEY = os.environ.get('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['personalnotes-backend.herokuapp.com','127.0.0.1']
+ALLOWED_HOSTS = ['personalnotes-backend.herokuapp.com','127.0.0.1','localhost','notes-backend-zvay.onrender.com']
 
 
 # Application definition
@@ -48,10 +47,10 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'accounts',
-    'Notes',
     'rest_framework',
     'corsheaders',
+    'accounts',
+    'Notes',
 ]
 
 MIDDLEWARE = [
@@ -60,17 +59,22 @@ MIDDLEWARE = [
     'django.contrib.sessions.middleware.SessionMiddleware',
     'corsheaders.middleware.CorsMiddleware',    
     'django.middleware.common.CommonMiddleware',
-    'django.middleware.csrf.CsrfViewMiddleware',
+    # 'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',    
 ]
 
+CORS_ALLOW_ALL_ORIGINS=True
+
+CSRF_TRUSTED_ORIGINS = [
+    "http://localhost:8000","https://dynamicled.prod.live",
+]
 
 CORS_ALLOWED_ORIGINS = [
-    'http://localhost:3000',
-    'https://personalnotes-frontend.netlify.app',
+    'http://localhost:8000',  
 ]
+
 
 CORS_ALLOW_HEADERS = ('content-disposition', 'accept-encoding',
                       'content-type', 'accept', 'origin', 'authorization','authtoken')
@@ -81,7 +85,7 @@ ROOT_URLCONF = 'notes_backend.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR / 'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -107,9 +111,9 @@ DATABASES = {
     }
 }
 
-import dj_database_url
-db_from_env = dj_database_url.config(conn_max_age=600)
-DATABASES['default'].update(db_from_env)
+# import dj_database_url
+# db_from_env = dj_database_url.config(conn_max_age=600)
+# DATABASES['default'].update(db_from_env)
 
 
 
@@ -149,23 +153,25 @@ USE_L10N = True
 USE_TZ = False
 
 # Email Configurations
-EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_USE_TLS = os.environ.get('EMAIL_USE_TLS')
-EMAIL_PORT = os.environ.get('EMAIL_PORT')
+EMAIL_BACKEND ='django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST='smtp.gmail.com'
+EMAIL_USE_TLS=True
+EMAIL_PORT=587
 EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER')
 EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD')
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
 
-STATIC_URL = '/static/'
-# if DEBUG:
-#     STATICFILES_DIRS = [
-#         os.path.join(BASE_DIR, 'static')
-#     ]
-# else:
-STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+STATIC_URL = 'static/'
+
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, "static"),
+]
+
+STATIC_ROOT = 'staticfiles/'
+
+# STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
