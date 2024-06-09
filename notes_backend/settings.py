@@ -35,7 +35,7 @@ SECRET_KEY = os.environ.get('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['personalnotes-backend.herokuapp.com','127.0.0.1','localhost','notes-backend-zvay.onrender.com']
+ALLOWED_HOSTS = ['personalnotes-backend.herokuapp.com','127.0.0.1','localhost','notes-backend-e24o.onrender.com']
 
 
 # Application definition
@@ -72,7 +72,7 @@ CSRF_TRUSTED_ORIGINS = [
 ]
 
 CORS_ALLOWED_ORIGINS = [
-    'http://localhost:8000',  
+    'http://localhost:8000',    
 ]
 
 
